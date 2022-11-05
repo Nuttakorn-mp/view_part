@@ -164,58 +164,60 @@ export default {
     // My DB      : http://localhost:4000/getAnimalName/
 
     //ลองยิง db 499 : ถ้าไม่เจอภายใน 500 ms ==>  close
-    var res = await axios
-      .get("http://localhost:4000" + "/getAnimalName", { timeout: 500 })
-      .then((Response) => Response)
-      .catch((err) => {
-        if (err.code == "ECONNABORTED") {
-          Promise.reject(err);
-        }
-      });
-    if (typeof res !== "undefined") {
-      console.log("499 db is online");
-      this.apiLink = "http://localhost:4000";
-      this.apiCommand_GetAllAnimalName = "/getAnimalName";
-      this.apicommand_GetAnimal_by_id = "/getAnimalName";
-      this.animalGet = res.data;
-      this.filter_out_animal_not_ready();
-    } else {
-      this.apiLink = "http://localhost:3000";
-      this.apiCommand_GetAllAnimalName = "/animal/get-all-animal-name";
-      this.apicommand_GetAnimal_by_id = "/animal/bone/web";
-      axios
-        .get(this.apiLink + this.apiCommand_GetAllAnimalName)
-        .then((Response) => {
-          console.log("optional db is online");
-          this.animalGet = Response.data;
-          this.filter_out_animal_not_ready();
-        })
-        .catch((err) => {
-          if (err.code == "ECONNABORTED") {
-            Promise.reject(err);
-          }
-          console.log("both db close");
-          this.db_available_status = false;
-          console.log(this.db_available_status);
-        });
-    }
+
+    // var res = await axios
+    //   .get("http://localhost:4000" + "/getAnimalName", { timeout: 500 })
+    //   .then((Response) => Response)
+    //   .catch((err) => {
+    //     if (err.code == "ECONNABORTED") {
+    //       Promise.reject(err);
+    //     }
+    //   });
+    // if (typeof res !== "undefined") {
+    //   console.log("499 db is online");
+    //   this.apiLink = "http://localhost:4000";
+    //   this.apiCommand_GetAllAnimalName = "/getAnimalName";
+    //   this.apicommand_GetAnimal_by_id = "/getAnimalName";
+    //   this.animalGet = res.data;
+    //   this.filter_out_animal_not_ready();
+    // } else {
+    //   this.apiLink = "http://localhost:3000";
+    //   this.apiCommand_GetAllAnimalName = "/animal/get-all-animal-name";
+    //   this.apicommand_GetAnimal_by_id = "/animal/bone/web";
+    //   axios
+    //     .get(this.apiLink + this.apiCommand_GetAllAnimalName)
+    //     .then((Response) => {
+    //       console.log("optional db is online");
+    //       this.animalGet = Response.data;
+    //       this.filter_out_animal_not_ready();
+    //     })
+    //     .catch((err) => {
+    //       if (err.code == "ECONNABORTED") {
+    //         Promise.reject(err);
+    //       }
+    //       console.log("both db close");
+    //       this.db_available_status = false;
+    //       console.log(this.db_available_status);
+    //     });
+    // }
 
     // ตั้งค่า และเปิดตั้งแต่บรรทัดนี้
-    // this.apiLink ="http://localhost:3000"
-    // this.apiCommand_GetAllAnimalName="/animal/get-all-animal-name"
-    // this.apicommand_GetAnimal_by_id="/animal/bone/web"
-    // this.apiCommand_PUT_AnimalData="/animal/update-tag"
-    // this.apiCommand_POST_AnimalData="/animal/bone"
+    this.apiLink ="http://localhost:3000"
+    this.apiCommand_GetAllAnimalName="/animal/get-all-animal-name"
+    this.apicommand_GetAnimal_by_id="/animal/bone/web"
+    this.apiCommand_PUT_AnimalData="/animal/update-tag"
+    this.apiCommand_POST_AnimalData="/animal/bone"
 
-    // axios.get(this.apiLink+this.apiCommand_GetAllAnimalName).then(Response => {
-    //   console.log("optional db is online")
-    //   this.animalGet = Response.data
-    //   this.project499=false;
-    // })
-    // .catch(err =>{
-    //   if(err.code == 'ECONNABORTED'){Promise.reject(err)}
-    //   this.db_available_status = false
-    // })
+    axios.get(this.apiLink+this.apiCommand_GetAllAnimalName).then(Response => {
+      console.log("optional db is online")
+      this.animalGet = Response.data
+      this.project499=false;
+      this.filter_out_animal_not_ready();
+    })
+    .catch(err =>{
+      if(err.code == 'ECONNABORTED'){Promise.reject(err)}
+      this.db_available_status = false
+    })
     //จนถึงบรรทัดนี้
   },
 };
