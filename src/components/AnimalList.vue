@@ -105,6 +105,8 @@ export default {
   },
   methods: {
     filter_out_animal_not_ready() {
+      console.log()
+      console.log('filter function Start!')
       for (let i = 0; i < parseInt(this.animalGet.length); i++) {
         if (
           this.animalGet[i].bone == true &&
@@ -113,6 +115,9 @@ export default {
           this.completeImgfilter.push(this.animalGet[i]);
         }
       }
+      console.log('animal filter :')
+      console.log(this.completeImgfilter)
+      console.log()
     },
     goToPage(englishName, _id, thaiName) {
       // console.log("U click");
@@ -163,8 +168,9 @@ export default {
     // P pond DB  : http://localhost:3000/animal/get-all-animal-name
     // My DB      : http://localhost:4000/getAnimalName/
 
-    //ลองยิง db 499 : ถ้าไม่เจอภายใน 500 ms ==>  close
 
+
+    //ลองยิง db 499 : ถ้าไม่เจอภายใน 500 ms ==>  close
     // var res = await axios
     //   .get("http://localhost:4000" + "/getAnimalName", { timeout: 500 })
     //   .then((Response) => Response)
@@ -212,6 +218,9 @@ export default {
       console.log("optional db is online")
       this.animalGet = Response.data
       this.project499=false;
+      console.log()
+      console.log('animal Get :')
+      console.log(this.animalGet)
       this.filter_out_animal_not_ready();
     })
     .catch(err =>{
