@@ -94,12 +94,8 @@ export default {
         if (a.name > b.name) return 1;
         return 0;
       }
-
-      return this.animalGet
+      return this.completeImgfilter
         .filter((user) => {
-          /* console.log(user.name.toLowerCase().includes(this.search.toLowerCase())); */
-          // console.log(user.name.toLowerCase())
-          // console.log(this.search.toLowerCase())
           return user.englishName
             .toLowerCase()
             .includes(this.searchInput.toLowerCase());
