@@ -489,7 +489,7 @@ export default {
     this.animaldata = this.$route.params.animalData;
     this.imgLoadList = this.$route.params.imgLoadList;
     this.imgLength = this.$route.params.imgLength;
-    // this.initData();
+    this.initData();
 
   },
 };
