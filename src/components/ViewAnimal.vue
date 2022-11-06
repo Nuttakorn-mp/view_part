@@ -254,6 +254,8 @@ export default {
       // } //END IF CHECK DUP ID
     },
     imgLoad() {
+      console.log()
+      console.log('current img link : '+this.imgLoadList[this.$data.indexImg])
       return this.imgLoadList[this.$data.indexImg];
       // return `http://localhost:3000/img/animals/img-1616772200490.jpeg`
     },

@@ -106,24 +106,24 @@ export default {
   methods: {
     filter_out_animal_not_ready() {
       
-      console.log()
-      console.log('filter function Start!')
+      // console.log()
+      // console.log('filter function Start!')
       for (let i = 0; i < parseInt(this.animalGet.length); i++) {
         if (
           this.animalGet[i].bone == true &&
           this.animalGet[i].completeImage == true
         ) {
           this.completeImgfilter.push(this.animalGet[i]);
-          console.log()
-          console.log(this.animalGet[i].englishName + ' i : '+i)
-          console.log('   bone : '+this.animalGet[i].bone)
-          console.log('   comp : '+this.animalGet[i].completeImage)
-          console.log()
+          // console.log()
+          // console.log(this.animalGet[i].englishName + ' i : '+i)
+          // console.log('   bone : '+this.animalGet[i].bone)
+          // console.log('   comp : '+this.animalGet[i].completeImage)
+          // console.log()
         }
       }
-      console.log('animal filter :')
-      console.log(this.completeImgfilter)
-      console.log()
+      // console.log('animal filter :')
+      // console.log(this.completeImgfilter)
+      // console.log()
     },
     goToPage(englishName, _id, thaiName) {
       // console.log("U click");
@@ -224,9 +224,9 @@ export default {
       console.log("optional db is online")
       this.animalGet = Response.data
       this.project499=false;
-      console.log()
-      console.log('animal Get :')
-      console.log(this.animalGet)
+      // console.log()
+      // console.log('animal Get :')
+      // console.log(this.animalGet)
       this.filter_out_animal_not_ready();
     })
     .catch(err =>{
