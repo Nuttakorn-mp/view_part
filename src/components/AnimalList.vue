@@ -90,8 +90,8 @@ export default {
     filteredAndSorted() {
       // function to compare names
       function compare(a, b) {
-        if (a.name < b.name) return -1;
-        if (a.name > b.name) return 1;
+        if (a.englishName < b.englishName) return -1;
+        if (a.englishName > b.englishName) return 1;
         return 0;
       }
       return this.completeImgfilter
@@ -105,6 +105,7 @@ export default {
   },
   methods: {
     filter_out_animal_not_ready() {
+      
       console.log()
       console.log('filter function Start!')
       for (let i = 0; i < parseInt(this.animalGet.length); i++) {
@@ -113,6 +114,11 @@ export default {
           this.animalGet[i].completeImage == true
         ) {
           this.completeImgfilter.push(this.animalGet[i]);
+          console.log()
+          console.log(this.animalGet[i].englishName + ' i : '+i)
+          console.log('   bone : '+this.animalGet[i].bone)
+          console.log('   comp : '+this.animalGet[i].completeImage)
+          console.log()
         }
       }
       console.log('animal filter :')
