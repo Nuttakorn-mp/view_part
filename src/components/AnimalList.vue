@@ -171,66 +171,66 @@ export default {
   },
   async created() {
     //ลองยิง db 499 : ถ้าไม่เจอภายใน 500 ms ==>  close
-    // var url =`${process.env.VUE_APP_ApiLink499}:${process.env.VUE_APP_Port499}${process.env.VUE_APP_ApiCommand_GetAllAnimalName499}`
-    // var res = await axios
-    //   .get(url,{timeout : 500})
-    //   // .get("http://localhost:4000" + "/getAnimalName", { timeout: 500 })
-    //   .then((Response) => Response)
-    //   .catch((err) => {
-    //     if (err.code == "ECONNABORTED") {
-    //       Promise.reject(err);
-    //     }
-    //   });
-    // if (typeof res !== "undefined") {
-    //   console.log("499 db is online");
-    //   this.apiLink = `${process.env.VUE_APP_ApiLink499}:${process.env.VUE_APP_Port499}`
-    //   this.apiCommand_GetAllAnimalName = process.env.VUE_APP_ApiCommand_GetAllAnimalName499
-    //   this.apicommand_GetAnimal_by_id = process.env.VUE_APP_Apicommand_GetAnimal_by_id499
+    var url =`${process.env.VUE_APP_ApiLink499}:${process.env.VUE_APP_Port499}${process.env.VUE_APP_ApiCommand_GetAllAnimalName499}`
+    var res = await axios
+      .get(url,{timeout : 500})
+      // .get("http://localhost:4000" + "/getAnimalName", { timeout: 500 })
+      .then((Response) => Response)
+      .catch((err) => {
+        if (err.code == "ECONNABORTED") {
+          Promise.reject(err);
+        }
+      });
+    if (typeof res !== "undefined") {
+      console.log("499 db is online");
+      this.apiLink = `${process.env.VUE_APP_ApiLink499}:${process.env.VUE_APP_Port499}`
+      this.apiCommand_GetAllAnimalName = process.env.VUE_APP_ApiCommand_GetAllAnimalName499
+      this.apicommand_GetAnimal_by_id = process.env.VUE_APP_Apicommand_GetAnimal_by_id499
 
-    //   // this.apiLink = "http://localhost:4000";
-    //   // this.apiCommand_GetAllAnimalName = "/getAnimalName";
-    //   // this.apicommand_GetAnimal_by_id = "/getAnimalName";
-    //   this.animalGet = res.data;
-    //   this.filter_out_animal_not_ready();
-    // } else {
-    //   this.apiLink = `${process.env.VUE_APP_ApiLink}:${process.env.VUE_APP_Port}`
-    //   this.apiCommand_GetAllAnimalName = process.env.VUE_APP_ApiCommand_GetAllAnimalName
-    //   this.apicommand_GetAnimal_by_id = process.env.VUE_APP_Apicommand_GetAnimal_by_id
+      // this.apiLink = "http://localhost:4000";
+      // this.apiCommand_GetAllAnimalName = "/getAnimalName";
+      // this.apicommand_GetAnimal_by_id = "/getAnimalName";
+      this.animalGet = res.data;
+      this.filter_out_animal_not_ready();
+    } else {
+      this.apiLink = `${process.env.VUE_APP_ApiLink}:${process.env.VUE_APP_Port}`
+      this.apiCommand_GetAllAnimalName = process.env.VUE_APP_ApiCommand_GetAllAnimalName
+      this.apicommand_GetAnimal_by_id = process.env.VUE_APP_Apicommand_GetAnimal_by_id
 
-    //   // this.apiLink = "http://localhost:3000";
-    //   // this.apiCommand_GetAllAnimalName = "/animal/get-all-animal-name";
-    //   // this.apicommand_GetAnimal_by_id = "/animal/bone/web";
-    //   axios
-    //     .get(this.apiLink + this.apiCommand_GetAllAnimalName)
-    //     .then((Response) => {
-    //       console.log("optional db is online");
-    //       this.animalGet = Response.data;
-    //       this.filter_out_animal_not_ready();
-    //     })
-    //     .catch((err) => {
-    //       if (err.code == "ECONNABORTED") {
-    //         Promise.reject(err);
-    //       }
-    //       console.log("both db close");
-    //       this.db_available_status = false;
-    //       // console.log(this.db_available_status);
-    //     });
-    // }
+      // this.apiLink = "http://localhost:3000";
+      // this.apiCommand_GetAllAnimalName = "/animal/get-all-animal-name";
+      // this.apicommand_GetAnimal_by_id = "/animal/bone/web";
+      axios
+        .get(this.apiLink + this.apiCommand_GetAllAnimalName)
+        .then((Response) => {
+          console.log("optional db is online");
+          this.animalGet = Response.data;
+          this.filter_out_animal_not_ready();
+        })
+        .catch((err) => {
+          if (err.code == "ECONNABORTED") {
+            Promise.reject(err);
+          }
+          console.log("both db close");
+          this.db_available_status = false;
+          // console.log(this.db_available_status);
+        });
+    }
 
     // ตั้งค่า และเปิดตั้งแต่บรรทัดนี้
-    this.apiLink = `${process.env.VUE_APP_ApiLink}:${process.env.VUE_APP_Port}`
-    this.apiCommand_GetAllAnimalName = process.env.VUE_APP_ApiCommand_GetAllAnimalName
-    this.apicommand_GetAnimal_by_id = process.env.VUE_APP_Apicommand_GetAnimal_by_id
+    // this.apiLink = `${process.env.VUE_APP_ApiLink}:${process.env.VUE_APP_Port}`
+    // this.apiCommand_GetAllAnimalName = process.env.VUE_APP_ApiCommand_GetAllAnimalName
+    // this.apicommand_GetAnimal_by_id = process.env.VUE_APP_Apicommand_GetAnimal_by_id
 
-    axios.get(this.apiLink+this.apiCommand_GetAllAnimalName).then(Response => {
-      console.log("optional db is online")
-      this.animalGet = Response.data
-      this.filter_out_animal_not_ready();
-    })
-    .catch(err =>{
-      if(err.code == 'ECONNABORTED'){Promise.reject(err)}
-      this.db_available_status = false
-    })
+    // axios.get(this.apiLink+this.apiCommand_GetAllAnimalName).then(Response => {
+    //   console.log("optional db is online")
+    //   this.animalGet = Response.data
+    //   this.filter_out_animal_not_ready();
+    // })
+    // .catch(err =>{
+    //   if(err.code == 'ECONNABORTED'){Promise.reject(err)}
+    //   this.db_available_status = false
+    // })
     //จนถึงบรรทัดนี้
   },
 };
