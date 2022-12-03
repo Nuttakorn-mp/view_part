@@ -2,7 +2,6 @@
   <div class="blank">
     <p class="header-name">Animal name</p>
     <p class="header-name" style="left: 80px; top: -5px">
-      <!-- <img src="../assets/original.png" style="width: 269px" /> -->
       <img
         src="~@/assets/original.png"
         @error="$event.target.src = '/src/assets/original.png'"
@@ -106,35 +105,22 @@ export default {
   methods: {
     filter_out_animal_not_ready() {
       
-      // console.log()
-      // console.log('filter function Start!')
       for (let i = 0; i < parseInt(this.animalGet.length); i++) {
         if (
           this.animalGet[i].bone == true &&
           this.animalGet[i].completeImage == true
         ) {
           this.completeImgfilter.push(this.animalGet[i]);
-          // console.log()
-          // console.log(this.animalGet[i].englishName + ' i : '+i)
-          // console.log('   bone : '+this.animalGet[i].bone)
-          // console.log('   comp : '+this.animalGet[i].completeImage)
-          // console.log()
         }
       }
-      // console.log('animal filter :')
-      // console.log(this.completeImgfilter)
-      // console.log()
     },
     goToPage(englishName, _id, thaiName) {
-      // console.log("U click");
 
       //Get animal from id Here! สำหรับเช็คเงื่อนไข
       let _this = this;
       _this.get(_id, englishName, thaiName);
     },
     async get(_id, englishName, thaiName) {
-      // console.log(thaiName)
-      // console.log(this.apiLink+this.apicommand_GetAnimal_by_id+"/"+ _id)
       var pullData = await axios
         .get(this.apiLink + this.apicommand_GetAnimal_by_id + "/" + _id, {
           timeout: 500,
@@ -144,7 +130,6 @@ export default {
           if (err.code == "ECONNABORTED") {
             Promise.reject(err);
           }
-          console.log("conncection error");
           this.completeImgfilter = [];
           this.db_available_status = false;
         });
@@ -174,7 +159,6 @@ export default {
     var url =`${process.env.VUE_APP_ApiLink499}:${process.env.VUE_APP_Port499}${process.env.VUE_APP_ApiCommand_GetAllAnimalName499}`
     var res = await axios
       .get(url,{timeout : 500})
-      // .get("http://localhost:4000" + "/getAnimalName", { timeout: 500 })
       .then((Response) => Response)
       .catch((err) => {
         if (err.code == "ECONNABORTED") {
@@ -182,28 +166,18 @@ export default {
         }
       });
     if (typeof res !== "undefined") {
-      console.log("499 db is online");
       this.apiLink = `${process.env.VUE_APP_ApiLink499}:${process.env.VUE_APP_Port499}`
       this.apiCommand_GetAllAnimalName = process.env.VUE_APP_ApiCommand_GetAllAnimalName499
       this.apicommand_GetAnimal_by_id = process.env.VUE_APP_Apicommand_GetAnimal_by_id499
-
-      // this.apiLink = "http://localhost:4000";
-      // this.apiCommand_GetAllAnimalName = "/getAnimalName";
-      // this.apicommand_GetAnimal_by_id = "/getAnimalName";
       this.animalGet = res.data;
       this.filter_out_animal_not_ready();
     } else {
       this.apiLink = `${process.env.VUE_APP_ApiLink}:${process.env.VUE_APP_Port}`
       this.apiCommand_GetAllAnimalName = process.env.VUE_APP_ApiCommand_GetAllAnimalName
       this.apicommand_GetAnimal_by_id = process.env.VUE_APP_Apicommand_GetAnimal_by_id
-
-      // this.apiLink = "http://localhost:3000";
-      // this.apiCommand_GetAllAnimalName = "/animal/get-all-animal-name";
-      // this.apicommand_GetAnimal_by_id = "/animal/bone/web";
       axios
         .get(this.apiLink + this.apiCommand_GetAllAnimalName)
         .then((Response) => {
-          console.log("optional db is online");
           this.animalGet = Response.data;
           this.filter_out_animal_not_ready();
         })
@@ -211,9 +185,7 @@ export default {
           if (err.code == "ECONNABORTED") {
             Promise.reject(err);
           }
-          console.log("both db close");
           this.db_available_status = false;
-          // console.log(this.db_available_status);
         });
     }
 
@@ -223,7 +195,6 @@ export default {
     // this.apicommand_GetAnimal_by_id = process.env.VUE_APP_Apicommand_GetAnimal_by_id
 
     // axios.get(this.apiLink+this.apiCommand_GetAllAnimalName).then(Response => {
-    //   console.log("optional db is online")
     //   this.animalGet = Response.data
     //   this.filter_out_animal_not_ready();
     // })

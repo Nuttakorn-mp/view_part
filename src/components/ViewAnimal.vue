@@ -1,29 +1,18 @@
 <template>
-  <!-- <div>
-  <div>Hi 123456789</div>
-  <div class="header-name">Animal name : {{this.animalName}}</div>
-  </div> -->
   <div class="blank">
     <p class="header-name" style="left: 80px; top: -5px"> <img src= "~@/assets/original.png" @error="$event.target.src='/src/assets/original.png'" style="width: 269px" /> </p>
     <p class="animal-name">{{ this.animalName }}</p>
-
     <div class="main-box" id="main-box">
-
       <div class="click-box" id="click-box" ref="click">
         <div class="img-box">
           <img :src="imgLoad()" class="pic-size" />
         </div>
       </div>
-
       <div id="drawLine" class="drawLine-box" ></div>
-
       <button class="prev" @click="prevImg()">&#10094;</button>
       <button class="next" @click="nextImg()">&#10095;</button>
-
       <div class="showNumberOfImage">{{ this.indexImg + 1 }}/{{ this.imgLength }}</div>
     </div>
-    
-    
     <div class="descriptionBox">
       <p>Thai Name : {{ this.animaldata.animal.thaiName}}</p>
       <p class="englishName">English Name : {{this.animaldata.animal.englishName}}</p>
@@ -31,7 +20,6 @@
       <p class="technicalTerm">Technical Term : {{this.animaldata.animal.technicalTerm}}</p>
       <p>Description : {{this.animaldata.animal.description}}</p>
     </div>
-    
   </div>
 </template>
 
@@ -40,7 +28,6 @@
 <script>
 import Vue from "vue/dist/vue.esm";
 import draggable from "vuedraggable";
-// import Vue from "vue/dist/vue.js";
 import Router from "vue-router";
 import VueAxios from "vue-axios";
 import axios from "axios";
@@ -90,9 +77,6 @@ export default {
 
       return this.createList
         .filter((user) => {
-          /* console.log(user.name.toLowerCase().includes(this.search.toLowerCase())); */
-          // console.log(user.name.toLowerCase())
-          // console.log(this.search.toLowerCase())
           return user.title.toLowerCase().includes(this.search.toLowerCase());
         })
         .sort(compare);
@@ -119,40 +103,30 @@ export default {
         var Q = "";
         if (this.x >= 390 && this.y <= 210) {
           //Q2
-          // console.log("Q2")
           xCal = event.x + 62;
           yCal = event.y - 50;
           Q = 2;
         }
         if (this.x < 390 && this.y <= 210) {
           //Q1
-          // console.log("Q1")
           xCal = event.x - 62 - 117 + (13 - titleDefault.length) * 8;
           xCal -=15;
           yCal = event.y - 50 - 25;
           Q = 1;
         } else if (this.x >= 390 && this.y > 210) {
           //Q3
-          // console.log("Q3")
           xCal = event.x + 60;
           yCal = event.y + 48;
           Q = 3;
         } else if (this.x < 390 && this.y > 210) {
           //Q4
-          // console.log("Q4")
           xCal = event.x - 62 - 117 + (13 - titleDefault.length) * 8;
           yCal = event.y + 50;
           Q = 4;
         }
-
-        // console.log("addList count : "+this.addList.length)
-        // console.log("check dup");
         for (let i = 0; i < this.addList.length; i++) {
-          // console.log(this.addList[i]);
-          // console.log(this.addList.length);
           if (document.getElementById(this.addList[i].id)!=null) {
             if(Math.abs(this.addList[i].y - event.y) < 71 && Math.abs(this.addList[i].x - event.x) < 10){ // ตรง71 คือ รัศมีรอบๆจุดที่กด
-              // console.log("<");
               if (this.addList[i].y> event.y) {yCal = yCal-(25);}
               else{yCal = yCal+(25);}
             }
@@ -178,9 +152,6 @@ export default {
             dragCreate: {
               "min-width": "25px",
               "min-height": "15px",
-              // width: "25px",
-              // height: "auto",
-              // border: "1px solid green",
               "background-color": "whitesmoke",
               position: "absolute",
               top: yCal + "px",
@@ -192,9 +163,6 @@ export default {
             deleteIcon: {
               "background-color": "white",
               border: "unset",
-              // "min-width": "25px",
-              // "position": "absolute",
-              // "z-index": 2,
             },
             show: true,
             function() {
@@ -211,30 +179,15 @@ export default {
                 if (this.createList[0].title.length > 13) {
                   yNew = yNew + (this.createList[0].title.length - 13) * 5;
                 }
-                // if (this.createList[0].title.length>13 && this.Q==4) {
-                //   yNew = yNew + (this.createList[0].title.length - 13 )*5
-                // }
                 this.axis.x = yNew + this.refAxis.x;
                 this.dragCreate.left = String(yNew + this.refAxis.x) + "px";
               }
-              // console.log(yNew)
-              // console.log(this.axis.x )
-
-              // console.log(this.createList[0].title.length);
               app.$mount();
             },
           },
           components: { draggable },
         });
-
-        // const stat = document.getElementById("box2");
-        // console.log(document.getElementById("main-box"));
         const stat = document.getElementById('click-box');
-        if(stat == null){
-          console.log("------------------------")
-          console.log("stat is Null !!!!")
-          console.log("------------------------")
-        }
         let vueContainer = document.createElement("span");
         stat.appendChild(vueContainer);
         app.$mount(vueContainer);
@@ -254,14 +207,10 @@ export default {
       // } //END IF CHECK DUP ID
     },
     imgLoad() {
-      console.log()
-      console.log('current img link : '+this.imgLoadList[this.$data.indexImg])
       return this.imgLoadList[this.$data.indexImg];
-      // return `http://localhost:3000/img/animals/img-1616772200490.jpeg`
     },
     nextImg() {
       this.$data.indexImg = (this.$data.indexImg + 1) % this.imgLength;
-      // console.log("value index is " + this.$data.indexImg);
       if(this.animalName =="Arapaima"){
         this.millisecond = 100;
       }
@@ -278,9 +227,7 @@ export default {
           document.getElementById(this.addList[i].id) != null
         ) {
           document.getElementById(this.addList[i].id).__vue__.show = true;
-          // console.log(document.getElementById(this.addList[i].id+"-Line"))
           document.getElementById(this.addList[i].id + "L").__vue__.show = true;
-          // console.log(this.addList[i].id+"-Line is True")
         } else if (
           this.addList[i].pic != this.indexImg &&
           document.getElementById(this.addList[i].id) != null
@@ -341,7 +288,6 @@ export default {
 
       if (this.x >= 390 && this.y <= 210) {
         //Q2
-        // console.log("Q2")
         deg = (Math.atan2(Math.abs(this.y-yCal),Math.abs(this.x-xCal) ) *180 / Math.PI);
         if (yCal<this.y) { deg = deg*(-1);}
         xDragto = xCal;
@@ -350,7 +296,6 @@ export default {
         
       } else if (this.x < 390 && this.y <= 210) {
         //Q1
-        // console.log("Q1")
         xDistance =Math.abs(this.x-(xCal+5+document.getElementById(`${this.x}${Math.ceil(this.y)}${this.indexImg}`).__vue__._data.createList[0].title.length*8.5));
         yDistance =Math.abs(this.y-(yCal+25) );
         deg = (Math.atan2(yDistance,xDistance)*180/Math.PI)+180;
@@ -360,7 +305,6 @@ export default {
         yDragto= yCal;
       } else if (this.x >= 390 && this.y > 210) {
         //Q3
-        // console.log("Q3")
         deg = Math.atan2(Math.abs(this.y-yCal),Math.abs(this.x-xCal) ) *180 / Math.PI;
         xDragto = xCal;
         yDragto = yCal;
@@ -368,7 +312,6 @@ export default {
         
       } else if (this.x < 390 && this.y > 210) {
         //Q4
-        // console.log("Q4")
         xDistance =Math.abs(this.x-(xCal+5+document.getElementById(`${this.x}${Math.ceil(this.y)}${this.indexImg}`).__vue__._data.createList[0].title.length*8.5));
         yDistance =Math.abs(this.y-yCal );
         deg= (180-Math.atan2(yDistance,xDistance)*180/Math.PI);
@@ -393,7 +336,6 @@ export default {
             "min-width": "25px",
             width: Math.sqrt(testsum) + "px",
             "border-top": "1px solid red",
-            // "width":"40px",
             transform: `rotate(${deg}deg)`,
             "transform-origin": "0% 0%",
             top: this.y + "px",
@@ -414,8 +356,6 @@ export default {
       this.x = 0;
       this.y = 0;
 
-      console.log("load tag!")
-      // console.log(this.dataGet)
       for (let i = 0; i < this.dataGet[0].data.length; i++) {
         //วนตาม จน รูป
         for (let j = 0; j < this.dataGet[0].data[i].coordinator.length; j++) {
@@ -434,9 +374,6 @@ export default {
           });
         }
       }
-      // console.log("firstput")
-      // console.log(this.firstPut)
-      // console.log(this.firstPut.length)
       for (let k = 0; k < this.firstPut.length; k++) {
         var load = {
           x: this.firstPut[k].lineStartX,
@@ -444,14 +381,9 @@ export default {
         };
         this.x = load.x;
         this.y = load.y;
-        // console.log("--------firstput--------")
-        // console.log(this.firstPut[k]);
         if (this.firstPut[k].pic > 0) {
           this.indexImg = this.firstPut[k].pic;
-          // console.log(this.indexImg);
-          // console.log("condition 1");
           _this.addDragBox(load, this.firstPut[k].title);
-          // console.log("id "+this.firstPut[k].id)
           document.getElementById(this.firstPut[k].id).__vue__.show = false;
           document.getElementById(
             this.addList[k].id + "L"
@@ -459,7 +391,6 @@ export default {
           this.indexImg = 0;
           
         } else {
-          // console.log("condition 2");
           _this.addDragBox(load, this.firstPut[k].title);
         }
       }
@@ -467,30 +398,21 @@ export default {
     initData() {
       let _this = this;
       this.dataGet[0] = this.animaldata;
-      // console.log("set init data time out 200")
-      // console.log("---------")
-      // this.dataGet[0] = this.animaldata;
 
       setTimeout(()=>_this.loadTag(),200);
-      // _this.loadTag();
     },
   },
   created() {
     //ถ้า F5 แล้ว propที่ส่งมาจากหน้าแรกจะหาย ==> ส่งกลับหน้าแรก
     if(typeof this.$route.params.animalName == 'undefined'){this.$router.replace("/animalList");}
-
-
-    // console.log("---------------- create --------------")
     this.dataGet=[];
     this.thaiName = this.$route.params.thaiName;
     this.animalName = this.$route.params.animalName;
     this.id = this.$route.params.animalID;
-
     this.animaldata = this.$route.params.animalData;
     this.imgLoadList = this.$route.params.imgLoadList;
     this.imgLength = this.$route.params.imgLength;
     this.initData();
-
   },
 };
 </script>
